@@ -17,11 +17,7 @@ namespace DotNetApiTest.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Articles>> Get()
-        {
-            // return _bookService.GetFirst();
-            return _bookService.Get();
-        }
+        public ActionResult<List<Articles>> Get() => _bookService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetBook")]
         public ActionResult<Articles> Get(string id)
@@ -37,11 +33,8 @@ namespace DotNetApiTest.Controllers
         }
 
 
-        // [HttpGet("/first")]
-        // public ActionResult<Articles> GetFirst()
-        // {
-        //     return _bookService.GetFirst();
-        // }
+        [HttpGet("first")]
+        public ActionResult<Articles> GetFirst() => _bookService.GetFirst();
 
         [HttpPost]
         public ActionResult<Articles> Create(Articles book)
