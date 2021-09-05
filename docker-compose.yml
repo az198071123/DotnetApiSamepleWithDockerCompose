@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  dotnetapitest:
+    image: ${DOCKER_REGISTRY-}dotnetapitest
+    build:
+      context: .
+      dockerfile: DotNetApiTest/Dockerfile
