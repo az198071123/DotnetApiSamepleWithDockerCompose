@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using DotNetApiTest.Models;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DotNetApiTest.Services
@@ -23,7 +22,7 @@ namespace DotNetApiTest.Services
 
 
         public Articles GetFirst() =>
-            _books.Find(new BsonDocument()).FirstOrDefault();
+            _books.Find(book => true).SortByDescending(book => book.Id).FirstOrDefault();
 
         public Articles Get(string id) =>
             _books.Find<Articles>(book => book.Id == id).FirstOrDefault();
