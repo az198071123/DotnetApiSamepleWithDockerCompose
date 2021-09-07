@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using StackExchange.Redis;
+
 
 namespace DotNetApiTest
 {
@@ -21,6 +23,10 @@ namespace DotNetApiTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var multiplexer = ConnectionMultiplexer.Connect("localhost");
+            services.AddSingleton<IConnectionMultiplexer>(multiplexer);
+
+
             services.Configure<PttDatabaseSettings>(
                 Configuration.GetSection(nameof(PttDatabaseSettings)));
 
