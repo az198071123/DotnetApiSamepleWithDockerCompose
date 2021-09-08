@@ -23,7 +23,7 @@ namespace DotNetApiTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var multiplexer = ConnectionMultiplexer.Connect("localhost");
+            var multiplexer = ConnectionMultiplexer.Connect("redis");
             services.AddSingleton<IConnectionMultiplexer>(multiplexer);
 
 

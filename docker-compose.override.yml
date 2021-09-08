@@ -1,13 +1,40 @@
-version: '3.4'
+version: "3.4"
 
 services:
   dotnetapitest:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      # - ASPNETCORE_URLS=http://localhost:5000
+      - ASPNETCORE_URLS=http://+:80
+      # - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
-      - "80"
-      - "443"
+      - "5000:80"
+      - "5001:443"
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+    depends_on:
+      - mongo
+      - redis
+
+  mongo:
+    container_name: "ptt-mongo"
+    image: mongo
+    environment:
+      - MONGO_INITDB_DATABASE=ptt
+    volumes:
+      - ./.docker_volumes/mongo:/data/db
+    ports:
+      - "27017:27017"
+
+  redis:
+    container_name: "ptt-redis"
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./.docker_volumes/redis:/data
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    command: redis-server
+# network_mode: "host"
